@@ -1,14 +1,14 @@
 import java.io.*;
 import java.net.Socket;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Cliente {
     public static void main(String[] args) throws IOException {
-        TelaCPF tela = new TelaCPF();
-        tela.abrirTelaCpf();
-        String mensagem = null;
-        boolean trava = true;
-        mensagem = "";
+        Scanner ler = new Scanner(System.in);
+        System.out.println("Escreva seu CPF :");
+        String  mensagem=   ler.nextLine();
+
 
         System.out.println(mensagem);
         if (!mensagem.isEmpty() && mensagem != null) {
@@ -22,6 +22,10 @@ public class Cliente {
 
 
             saida.writeUTF(mensagem);
+
+            DataInputStream entrada = new DataInputStream(conexao.getInputStream());
+             mensagem = entrada.readUTF().toString();
+            System.out.println(mensagem);
 
             saida.close();
             conexao.close();
